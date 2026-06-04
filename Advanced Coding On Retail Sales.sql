@@ -32,15 +32,43 @@ GROUP BY `Product Category`
 HAVING total_transactions > 300;
 
 -- 5. What is the highest sale amount recorded for each product category?
-SELECT `Product Category`
+SELECT DISTINCT `Product Category`,
+                MAX(`Total Amount`) AS highest_sale
 FROM retail_sales
-
+GROUP BY `Product Category`;
 
 -- 6. Find the minimum sale amount for each gender.  
+SELECT DISTINCT Gender,
+                MIN(`Total Amount`) AS minimum_sale
+FROM retail_sales
+GROUP BY Gender;
+
 -- 7. Show categories where the average quantity sold is greater than 2. 
+SELECT `Product Category`,
+        AVG(Quantity) AS avg_quantity
+FROM retail_sales
+GROUP BY `Product Category`
+HAVING avg_quantity > 2;
+
 -- 8. Find the total sales for customers aged between 25 and 40 who purchased Beauty or Clothing products.
+SELECT SUM(`Total Amount`) AS total_sales
+FROM retail_sales
+WHERE `Product Category` IN ('Beauty','Clothing') AND Age BETWEEN 25 AND 40;
+
 -- 9. Which product categories have a maximum sale amount greater than 1000? 
+SELECT `Product Category`,
+        MAX(`Total Amount`) AS highest_max_sale
+FROM retail_sales
+GROUP BY `Product Category`
+HAVING highest_max_sale >1000;
+
 -- 10. Show the top 3 categories by average sales value, excluding customers under 25.
+SELECT `Product Category`,
+AVG(`Total Amount`) AS avg_sales
+FROM retail_sales
+WHERE Age >25
+GROUP BY `Product Category`;
+
 
 --
 
